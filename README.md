@@ -4,5 +4,5 @@
 
 
 # Diagrama ER:
-<img alt="imagem modelo lógico" src="./Photos/ModeloLogicoFoto1.png">
+<img alt="imagem modelo lógico" src="./Photos/ModeloLogicoFoto.png">
 
