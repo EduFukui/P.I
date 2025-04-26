@@ -10,4 +10,4 @@
 https://miro.com/welcomeonboard/amhyQ0RHZWc5MHVIR1R5Rk0wNm9TeDlBcDIvd1ZxakZWKzFYUjBYN2xWNU1xMUpralo3UEVsdlpPWHZ3czZ1NHRIVW1IOFoyYlpOOGZ0ek9BeUlrTWFublNYYk4wOVFhbGJHZHNxdVU5SmpkczNqZlhpN01sZkJUNGxYRzFNTG9hWWluRVAxeXRuUUgwWDl3Mk1qRGVRPT0hdjE=?share_link_id=596276630291
 
 <h1>Link do Figma</h1>
-https://www.figma.com/design/STkE0KgkTXYoKetxjM3h93/Untitled?node-id=2-865&t=9ueOeKAeRSICoQiX-1
+https://www.figma.com/proto/STkE0KgkTXYoKetxjM3h93/Untitled?node-id=0-1&t=VPl3c0ZoN8eSNbeS-1
