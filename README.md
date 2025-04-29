@@ -1,4 +1,4 @@
-<h1>Reclama São Leopoldo</h1>
+<h1>Muda São Leopoldo</h1>
 
 <p>Integrantes: Arthur Vargas Lima, Bruno Garcia Guerreiro, Eduardo Sanhudo Fukui e Matheus Medtler </p>
 
