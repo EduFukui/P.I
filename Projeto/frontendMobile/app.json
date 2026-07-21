@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "frontendMobile",
-    "slug": "frontendMobile",
+    "name": "ReclamaSL",
+    "slug": "ReclamaSL",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "frontendmobile",
+    "scheme": "reclamasl",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

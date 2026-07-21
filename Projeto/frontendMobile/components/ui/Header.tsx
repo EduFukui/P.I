@@ -1,47 +1,48 @@
-import { View, Text, StyleSheet } from "react-native";
-// Importa as cores do aplicativo
-import { COLORS } from "@/constants/colors";
-import { Image } from "expo-image";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import Colors from "@/constants/Colors";
 
 export default function Header() {
-    return (
-        // Exibe um cabeçalho com um título
-        <View style={styles.header}>
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity>
+        <Ionicons name="menu" size={26} color={Colors.primary} />
+      </TouchableOpacity>
 
+      <View style={styles.logo}>
+        <Text style={styles.logoText}>MAPA</Text>
+      </View>
 
-            {/* Título do aplicativo */}
-            <Text style={styles.title}>Muda SL</Text>
-
-            {/* Logo do aplicativo */}
-            <Image
-                source={{
-                    uri: "https://images.tcdn.com.br/img/img_prod/1308140/mitsubishi_lancer_evolution_x_1_20260122102754_43ce578a503c.jpg",
-                }}
-                style={styles.logo}
-            />
-
-            {/* Subtítulo do aplicativo */}
-            {/* <Text style={styles.subtitle}>Bem-vindo!</Text> */}
-        </View>
-    );
+      <TouchableOpacity>
+        <Ionicons
+          name="person-circle"
+          size={32}
+          color={Colors.primary}
+        />
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    header: {
-        marginBottom: 20, // Espaçamento inferior
-        alignItems: "center", // Centraliza os itens horizontalmente
-    },
-    logo: {
-        width: 300,
-        height: 300,
-        marginBottom: 10,
-    },
-    title: {
-        fontSize: 48,
-        color: COLORS.dark,
-    },
-    subtitle: {
-        fontSize: 16,
-        color: COLORS.gray,
-    },
+  container: {
+    height: 65,
+    paddingHorizontal: 18,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+
+  logo: {
+    backgroundColor: Colors.primary,
+    paddingHorizontal: 18,
+    paddingVertical: 6,
+    borderRadius: 8,
+  },
+
+  logoText: {
+    color: "#000",
+    fontWeight: "bold",
+    fontSize: 15,
+  },
 });
