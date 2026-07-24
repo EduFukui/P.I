@@ -1,7 +1,14 @@
-export const COLORS = {
-    primary: '#2E7D32',
-    secondary: '#E8F5E9',
-    white: '#ffffff',
-    dark: '#212121',
-    gray: '#757575'
-  }
+const Colors = {
+  background: "#171717",
+  surface: "#232323",
+  primary: "#B7FF00",
+  white: "#FFFFFF",
+  gray: "#A0A0A0",
+  border: "#303030",
+  success: "#37D67A",
+  warning: "#FFC107",
+  danger: "#FF5252",
+  card: "#1E1E1E"
+};
+
+export default Colors;
