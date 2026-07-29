@@ -1,11 +1,15 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import Colors from "@/constants/Colors";
 
 type Props = {
   title: string;
   description: string;
-  status: string;
-  image?: string;
+  status: "Em aberto" | "Em andamento" | "Resolvido";
+  image: string;
+  date: string;
+  onPress?: () => void;
 };
 
 export default function ReportCard({
@@ -13,48 +17,67 @@ export default function ReportCard({
   description,
   status,
   image,
+  date,
+  onPress,
 }: Props) {
-  const badgeColor =
-    status === "Resolvido"
-      ? Colors.success
-      : status === "Em andamento"
-      ? Colors.warning
-      : Colors.danger;
+  const getStatusColor = () => {
+    switch (status) {
+      case "Resolvido":
+        return Colors.success;
+      case "Em andamento":
+        return Colors.warning;
+      default:
+        return Colors.danger;
+    }
+  };
 
   return (
-    <View style={styles.card}>
-      <Image
-        source={{
-          uri:
-            image ||
-            "https://picsum.photos/400/200",
-        }}
-        style={styles.image}
-      />
+    <TouchableOpacity
+      activeOpacity={0.9}
+      style={styles.card}
+      onPress={onPress}
+    >
+      <Image source={{ uri: image }} style={styles.image} />
 
       <View style={styles.content}>
-        <Text style={styles.title}>
-          {title}
-        </Text>
+        <View style={styles.topRow}>
+          <Text style={styles.title}>{title}</Text>
 
-        <Text style={styles.description}>
+          <View
+            style={[
+              styles.badge,
+              {
+                backgroundColor: getStatusColor(),
+              },
+            ]}
+          >
+            <Text style={styles.badgeText}>{status}</Text>
+          </View>
+        </View>
+
+        <Text numberOfLines={2} style={styles.description}>
           {description}
         </Text>
 
         <View style={styles.footer}>
-          <View
-            style={[
-              styles.badge,
-              { backgroundColor: badgeColor },
-            ]}
-          >
-            <Text style={styles.badgeText}>
-              {status}
-            </Text>
+          <View style={styles.dateContainer}>
+            <Ionicons
+              name="calendar-outline"
+              size={15}
+              color="#999"
+            />
+
+            <Text style={styles.date}>{date}</Text>
           </View>
+
+          <Ionicons
+            name="chevron-forward"
+            size={20}
+            color={Colors.primary}
+          />
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 }
 
@@ -65,43 +88,65 @@ const styles = StyleSheet.create({
     marginBottom: 18,
     borderRadius: 18,
     overflow: "hidden",
+    elevation: 4,
   },
 
   image: {
     width: "100%",
-    height: 170,
+    height: 190,
   },
 
   content: {
     padding: 16,
   },
 
+  topRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+
   title: {
+    flex: 1,
     color: Colors.white,
-    fontWeight: "bold",
     fontSize: 18,
+    fontWeight: "bold",
+    marginRight: 10,
+  },
+
+  badge: {
+    paddingHorizontal: 12,
+    paddingVertical: 5,
+    borderRadius: 20,
+  },
+
+  badgeText: {
+    color: "#FFF",
+    fontWeight: "bold",
+    fontSize: 12,
   },
 
   description: {
-    color: "#AAA",
-    marginTop: 8,
-    lineHeight: 20,
+    marginTop: 10,
+    color: "#BBBBBB",
+    lineHeight: 21,
   },
 
   footer: {
     marginTop: 18,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
 
-  badge: {
-    paddingHorizontal: 14,
-    paddingVertical: 7,
-    borderRadius: 30,
+  dateContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
-  badgeText: {
-    color: "#FFF",
-    fontWeight: "bold",
+  date: {
+    color: "#999",
+    marginLeft: 6,
+    fontSize: 13,
   },
 });

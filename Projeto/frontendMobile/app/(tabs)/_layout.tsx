@@ -11,11 +11,17 @@ export default function TabLayout() {
           backgroundColor: "#1B1B1B",
           borderTopWidth: 0,
           height: 70,
+          paddingTop: 8,
+          paddingBottom: 8,
         },
 
         tabBarActiveTintColor: "#C6FF00",
-
         tabBarInactiveTintColor: "#777",
+
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "600",
+        },
       }}
     >
       <Tabs.Screen
@@ -63,14 +69,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Perfil",
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons
-              name="person"
-              size={size}
-              color={color}
-            />
-          ),
+          href: null,
         }}
       />
     </Tabs>
