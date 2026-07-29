@@ -1,11 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import Home from '../pages/Home'
+import Dashboard from '../pages/Dashboard'
+import Maps from '../pages/Maps'
 
 function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/maps' element={<Maps />} />
       </Routes>
     </BrowserRouter>
   )
