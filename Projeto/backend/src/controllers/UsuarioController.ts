@@ -5,13 +5,17 @@ import { usuarioSchema } from "../validators/UsuarioValidator";
 const service = new UsuarioService();
 
 export class UsuarioController {
+
     async list(req: Request, res: Response) {
         try {
             const nomeCompleto = req.query.nomeCompleto as string;
+
             const usuarios = await service.list(nomeCompleto);
 
             return res.status(200).json(usuarios);
+
         } catch (error: any) {
+
             return res.status(500).json({
                 message: error.message,
             });
@@ -25,7 +29,9 @@ export class UsuarioController {
             const usuario = await service.getById(id);
 
             return res.status(200).json(usuario);
+
         } catch (error: any) {
+
             return res.status(404).json({
                 message: error.message,
             });
@@ -34,14 +40,29 @@ export class UsuarioController {
 
     async create(req: Request, res: Response) {
         try {
-            const data = usuarioSchema.parse(req.body);
+
+            const data = usuarioSchema.parse({
+                ...req.body,
+
+                // Todo cadastro público será usuário comum
+                funcao: "usuario",
+            });
 
             const usuario = await service.create(data);
 
+            const safe = { ...usuario };
+
+            // Nunca retornar a senha para o frontend
+            delete (safe as any).senha;
+            delete (safe as any).password;
+
             return res.status(201).json({
-                data: usuario,
+                message: "Usuário cadastrado com sucesso.",
+                user: safe,
             });
+
         } catch (error: any) {
+
             return res.status(400).json({
                 message: error.message,
             });
@@ -50,15 +71,24 @@ export class UsuarioController {
 
     async update(req: Request, res: Response) {
         try {
+
             const id = Number(req.params.id);
+
             const data = req.body;
 
             const usuario = await service.update(id, data);
 
+            const safe = { ...usuario };
+
+            delete (safe as any).senha;
+            delete (safe as any).password;
+
             return res.status(200).json({
-                data: usuario,
+                data: safe,
             });
+
         } catch (error: any) {
+
             return res.status(400).json({
                 message: error.message,
             });
@@ -67,12 +97,17 @@ export class UsuarioController {
 
     async delete(req: Request, res: Response) {
         try {
-            await service.delete(Number(req.params.id));
+
+            await service.delete(
+                Number(req.params.id)
+            );
 
             return res.status(200).json({
                 message: "Usuário deletado com sucesso",
             });
+
         } catch (error: any) {
+
             return res.status(500).json({
                 message: error.message,
             });

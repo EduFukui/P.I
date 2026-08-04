@@ -9,3 +9,5 @@ routesUser.post("/create", user.create.bind(user));
 routesUser.get("/list", user.list.bind(user));
 routesUser.put("/update/:id", user.update.bind(user));
 routesUser.delete("/delete/:id", user.delete.bind(user));
+
+routesUser.get("/:id", user.getById.bind(user));
