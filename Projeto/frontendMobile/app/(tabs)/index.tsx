@@ -1,21 +1,25 @@
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from "react-native";
 
 import Header from "@/components/ui/Header";
 import SearchBar from "@/components/ui/SearchBar";
-import MapComponent from "@/components/ui/MapComponent";
+import MapCard from "@/components/ui/MapCard";
 import FloatingButton from "@/components/ui/FloatingButton";
 
 import Colors from "@/constants/Colors";
 
-export default function HomeScreen() {
+export default function MapScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header title="MAPA" />
 
       <SearchBar />
 
       <View style={styles.mapContainer}>
-        <MapComponent />
+        <MapCard />
       </View>
 
       <FloatingButton />
