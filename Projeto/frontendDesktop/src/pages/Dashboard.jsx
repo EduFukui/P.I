@@ -2,7 +2,7 @@ import { useState } from "react";
 import { BoltIcon } from "@heroicons/react/24/outline";
 
 import Sidebar from "../components/SideBar";
-import TopBar from "../components/Dashboard/TopBar";
+import TopBar from "../components/TopBar";
 import WelcomeCard from "../components/Dashboard/WelcomeBar";
 import StatsCard from "../components/Dashboard/StatsCard";
 import RestorationSection from "../components/Dashboard/RestorationSection";

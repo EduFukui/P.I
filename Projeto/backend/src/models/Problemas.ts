@@ -8,7 +8,6 @@ import {
 
 import { Categorias } from "./Categorias";
 import { Relatorios } from "./Relatorios";
-import { AtribuicaoDoProblemas } from "./AtribuicaoDeProblemas";
 
 @Entity("problemas")
 export class Problemas {
@@ -44,7 +43,4 @@ export class Problemas {
 
     @OneToMany(() => Relatorios, (relatorio) => relatorio.problema)
     relatorios: Relatorios[];
-
-    @OneToMany(() => AtribuicaoDoProblemas, (atribuicao) => atribuicao.problema)
-    atribuicoes: AtribuicaoDoProblemas[];
 }

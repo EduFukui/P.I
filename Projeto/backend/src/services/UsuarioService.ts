@@ -1,6 +1,7 @@
 import { Like, Not } from "typeorm";
 import { AppDataSource } from "../config/data-source";
 import { Usuarios } from "../models/Usuarios";
+import { hash } from "bcrypt";
 
 export class UsuarioService {
     private repoUsuario = AppDataSource.getRepository(Usuarios);
@@ -34,7 +35,14 @@ export class UsuarioService {
             (await this.repoUsuario.findOneBy({ telefone: data.telefone }));
 
         if (exists) {
-            throw new Error("CPF, e-mail ou telefone já cadastrado");
+            throw new Error(
+                "CPF, e-mail ou telefone já cadastrado"
+            );
+        }
+
+        // Criptografa a senha antes de salvar
+        if (data.senha) {
+            data.senha = await hash(data.senha, 10);
         }
 
         const usuario = this.repoUsuario.create(data);
@@ -89,6 +97,12 @@ export class UsuarioService {
             if (telefoneExiste) {
                 throw new Error("Telefone já cadastrado");
             }
+        }
+
+        // Se estiver alterando a senha,
+        // criptografa antes de salvar
+        if (data.senha) {
+            data.senha = await hash(data.senha, 10);
         }
 
         await this.repoUsuario.update(id, data);

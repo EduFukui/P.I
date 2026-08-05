@@ -7,8 +7,6 @@ import { Problemas } from "../models/Problemas";
 import { Imagens } from "../models/Imagens";
 import { Enderecos } from "../models/Enderecos";
 import { Categorias } from "../models/Categorias";
-import { AtribuicaoDoProblemas } from "../models/AtribuicaoDeProblemas";
-import { DepartamentosResponsaveis } from "../models/DepartamentosResponsaveis";
 
 dotenv.config();
 
@@ -21,5 +19,5 @@ export const AppDataSource = new DataSource ({
     port: Number(process.env.DB_PORT),
     synchronize: true,
     logging: true,
-    entities: [Usuarios, Relatorios, Problemas, Imagens, Enderecos, Categorias, AtribuicaoDoProblemas, DepartamentosResponsaveis],
+    entities: [Usuarios, Relatorios, Problemas, Imagens, Enderecos, Categorias],
 })
