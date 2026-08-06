@@ -14,7 +14,7 @@ export default function Logo() {
             <div>
 
                 <h1 className="text-3xl font-bold text-lime-400">
-                    Zeladoria Urbana
+                       Muda SL
                 </h1>
 
                 <p className="text-sm text-gray-400">
