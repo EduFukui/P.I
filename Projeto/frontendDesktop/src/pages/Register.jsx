@@ -1,5 +1,5 @@
 import RegisterForm from "../components/Register/RegisterForm";
-import RegisterHero from "../components/Register/RegisterHero";
+import RegisterHero from "../components/RegisterHero";
 
 export default function Register() {
     return (

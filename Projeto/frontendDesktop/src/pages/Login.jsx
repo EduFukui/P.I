@@ -1,4 +1,4 @@
-import RegisterHero from "../components/Register/RegisterHero";
+import RegisterHero from "../components/RegisterHero";
 import LoginForm from "../components/Login/LoginForm";
 
 export default function Login() {
