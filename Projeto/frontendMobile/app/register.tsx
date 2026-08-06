@@ -19,7 +19,7 @@ import Checkbox from "expo-checkbox";
 import { router } from "expo-router";
 
 import Colors from "@/constants/Colors";
-import { registerUser } from "@/services/authService";
+import { createUser } from "@/services/userApi";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");

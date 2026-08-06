@@ -25,16 +25,16 @@ export default function RegisterHero() {
                     <Logo />
 
                     <h1 className="text-3xl font-bold text-lime-400">
-                        Zeladoria Urbana
+                     
                     </h1>
 
                 </div>
 
                 <h2 className="text-5xl font-bold leading-tight text-white">
 
-                    Junte-se à
+                    Junte-se ao
                     <br />
-                    Zeladoria Urbana
+                    Muda SL
 
                 </h2>
 
