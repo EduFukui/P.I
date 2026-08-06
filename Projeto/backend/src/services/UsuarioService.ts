@@ -6,6 +6,7 @@ import { AppDataSource } from "../config/data-source";
 
 // Importa a entidade Usuários.
 import { Usuarios } from "../models/Usuarios";
+import { hash } from "bcrypt";
 
 // Classe responsável pelos usuários.
 export class UsuarioService {
@@ -51,7 +52,14 @@ export class UsuarioService {
             (await this.repoUsuario.findOneBy({ telefone: data.telefone }));
 
         if (exists) {
-            throw new Error("CPF, e-mail ou telefone já cadastrado");
+            throw new Error(
+                "CPF, e-mail ou telefone já cadastrado"
+            );
+        }
+
+        // Criptografa a senha antes de salvar
+        if (data.senha) {
+            data.senha = await hash(data.senha, 10);
         }
 
         // Cria o usuário.
@@ -114,7 +122,6 @@ export class UsuarioService {
             }
         }
 
-        // Atualiza os dados do usuário.
         await this.repoUsuario.update(id, data);
 
         // Retorna o usuário atualizado.

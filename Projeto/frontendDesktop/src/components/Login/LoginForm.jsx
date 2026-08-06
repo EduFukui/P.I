@@ -1,10 +1,7 @@
 import { useState } from "react";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
-
-import Logo from "../Register/Logo";
-import InputField from "../Register/InputField";
-import PasswordField from "../Register/PasswordField";
 import { useNavigate } from "react-router-dom";
+import Logo from "../Logo";
+import Form from "./Form";
 
 export default function LoginForm() {
 
@@ -142,94 +139,13 @@ export default function LoginForm() {
                     Entre para acessar o sistema.
                 </p>
 
-                <form
+                <Form
+                    form={form}
+                    error={error}
+                    loading={loading}
+                    onChange={handleChange}
                     onSubmit={handleSubmit}
-                    className="mt-10 space-y-6"
-                >
-
-                    {/* E-mail */}
-
-                    <InputField
-                        name="email"
-                        label="E-mail"
-                        icon={EnvelopeIcon}
-                        type="email"
-                        placeholder="email@exemplo.com"
-                        value={form.email}
-                        onChange={handleChange}
-                    />
-
-                    {/* Senha */}
-
-                    <PasswordField
-                        name="senha"
-                        label="Senha"
-                        placeholder="********"
-                        value={form.senha}
-                        onChange={handleChange}
-                    />
-
-                    {/* Lembrar / Esqueci senha */}
-
-                    <div className="flex items-center justify-between">
-
-                        <label className="flex items-center gap-2 text-sm text-gray-400">
-
-                            <input
-                                type="checkbox"
-                                className="accent-lime-400"
-                            />
-
-                            Lembrar-me
-
-                        </label>
-
-                        <button
-                            type="button"
-                            className="text-sm text-lime-400 hover:underline"
-                        >
-                            Esqueci minha senha
-                        </button>
-
-                    </div>
-
-                    {/* Erro */}
-
-                    {error && (
-
-                        <div className="rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
-                            {error}
-                        </div>
-
-                    )}
-
-                    {/* Entrar */}
-
-                    <button
-                        type="submit"
-                        disabled={loading}
-                        className="
-                            w-full
-                            rounded-xl
-                            bg-lime-400
-                            py-4
-                            font-bold
-                            text-black
-                            transition
-                            hover:brightness-110
-                            disabled:cursor-not-allowed
-                            disabled:opacity-50
-                        "
-                    >
-
-                        {loading
-                            ? "Entrando..."
-                            : "Entrar"
-                        }
-
-                    </button>
-
-                </form>
+                />
 
                 {/* Cadastro */}
 

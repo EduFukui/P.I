@@ -10,7 +10,6 @@ import {
 // Importa as entidades relacionadas.
 import { Categorias } from "./Categorias";
 import { Relatorios } from "./Relatorios";
-import { AtribuicaoDoProblemas } from "./AtribuicaoDeProblemas";
 
 // Define a tabela problemas.
 @Entity("problemas")
@@ -58,8 +57,4 @@ export class Problemas {
     // Lista de relatórios do problema.
     @OneToMany(() => Relatorios, (relatorio) => relatorio.problema)
     relatorios: Relatorios[];
-
-    // Lista de atribuições do problema.
-    @OneToMany(() => AtribuicaoDoProblemas, (atribuicao) => atribuicao.problema)
-    atribuicoes: AtribuicaoDoProblemas[];
 }

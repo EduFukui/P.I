@@ -14,8 +14,6 @@ import { Problemas } from "../models/Problemas";
 import { Imagens } from "../models/Imagens";
 import { Enderecos } from "../models/Enderecos";
 import { Categorias } from "../models/Categorias";
-import { AtribuicaoDoProblemas } from "../models/AtribuicaoDeProblemas";
-import { DepartamentosResponsaveis } from "../models/DepartamentosResponsaveis";
 
 // Lê as informações do arquivo .env.
 dotenv.config();
@@ -46,16 +44,5 @@ export const AppDataSource = new DataSource({
 
     // Mostra as consultas SQL no terminal.
     logging: true,
-
-    // Lista das tabelas do sistema.
-    entities: [
-        Usuarios,
-        Relatorios,
-        Problemas,
-        Imagens,
-        Enderecos,
-        Categorias,
-        AtribuicaoDoProblemas,
-        DepartamentosResponsaveis
-    ],
-});
+    entities: [Usuarios, Relatorios, Problemas, Imagens, Enderecos, Categorias],
+})

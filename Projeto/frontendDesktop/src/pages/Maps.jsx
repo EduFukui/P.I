@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Sidebar from "../components/SideBar";
-import TopBar from "../components/Dashboard/TopBar";
+import TopBar from "../components/TopBar";
 import SidePainel from "../components/Maps/SidePainel";
 
 import {
