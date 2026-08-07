@@ -1,60 +1,47 @@
-// Importa os decorators do TypeORM.
 import {
     Column,
     Entity,
     ManyToOne,
-    OneToMany,
+    OneToOne,
     PrimaryGeneratedColumn,
 } from "typeorm";
-
-// Importa as entidades relacionadas.
 import { Categorias } from "./Categorias";
 import { Relatorios } from "./Relatorios";
 
-// Define a tabela problemas.
 @Entity("problemas")
 export class Problemas {
-
-    // ID do problema.
     @PrimaryGeneratedColumn()
     id: number;
 
-    // Nome do problema.
     @Column({ nullable: false, length: 100 })
     nome: string;
 
-    // Prioridade do problema.
     @Column({
         type: "enum",
         enum: ["Baixa", "Média", "Alta", "Urgente"],
     })
-    prioridade: string;
+    prioridade: "Baixa" | "Média" | "Alta" | "Urgente";
 
-    // Descrição do problema.
     @Column({ type: "text" })
     descricao: string;
 
-    // Comentário da resolução.
     @Column({ type: "text", nullable: true })
-    comentarioResolucao: string;
+    comentarioResolucao: string | null;
 
-    // Avaliação feita pelo usuário.
     @Column({ nullable: true })
-    avaliacaoUsuario: number;
+    avaliacaoUsuario: number | null;
 
-    // Data da resolução.
     @Column({ nullable: true })
-    dataHoraResolucao: Date;
+    dataHoraResolucao: Date | null;
 
-    // Responsável pela resolução.
     @Column({ nullable: true, length: 150 })
-    responsavelResolucao: string;
+    responsavelResolucao: string | null;
 
-    // Categoria do problema.
-    @ManyToOne(() => Categorias, (categoria) => categoria.problemas)
+    @ManyToOne(() => Categorias, (categoria) => categoria.problemas, {
+        nullable: false,
+    })
     categoria: Categorias;
 
-    // Lista de relatórios do problema.
-    @OneToMany(() => Relatorios, (relatorio) => relatorio.problema)
-    relatorios: Relatorios[];
+    @OneToOne(() => Relatorios, (relatorio) => relatorio.problema)
+    relatorio: Relatorios;
 }

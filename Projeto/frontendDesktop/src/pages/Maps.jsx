@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useSearchParams } from "react-router-dom";
 
 import Sidebar from "../components/SideBar";
 import TopBar from "../components/TopBar";
 import SidePainel from "../components/Maps/SidePainel";
+import ClickMarker from "../components/ClickMarker";
 
 import {
     MapContainer,
@@ -11,76 +13,117 @@ import {
     Popup,
 } from "react-leaflet";
 
-const reports = [
-    {
-        id: 1,
-        title: "Buraco na Av. João Corrêa",
-        protocol: "#SL-1024",
-        description:
-            "Buraco grande ocupando metade da pista.",
-        priority: "Alta",
-        reported: "Hoje • 09:35",
-        category: "Pavimentação",
-        position: [-29.77108, -51.14572],
+const API_URL = "http://localhost:3000";
 
-        image1:
-            "src/imgs/image4.png",
-
-        image2:
-            "src/imgs/image5.png",
-    },
-    {
-        id: 2,
-        title: "Poste apagado",
-        protocol: "#SL-2058",
-        description:
-            "Iluminação pública não está funcionando na Rodovia Br-116.",
-        priority: "Média",
-        reported:
-            "Ontem",
-
-        category:
-            "Iluminação",
-
-        position:
-            [-29.758, -51.152],
-
-        image1:
-            "src/imgs/image2.png",
-
-        image2:
-            "src/imgs/image3.png",
-    },
-];
+function formatReport(report) {
+    return {
+        id: report.id,
+        title: report.problema?.nome || "Ocorrência",
+        protocol: `#SL-${String(report.id).padStart(4, "0")}`,
+        description: report.descricao || report.problema?.descricao || "",
+        priority: report.problema?.prioridade || "Baixa",
+        status: report.status || "Pendente",
+        reported: report.dataRelatorio
+            ? new Date(report.dataRelatorio).toLocaleString("pt-BR")
+            : "",
+        category: report.problema?.categoria?.nome || "Sem categoria",
+        position: [
+            Number(report.endereco?.latitude),
+            Number(report.endereco?.longitude),
+        ],
+        endereco: report.endereco,
+        usuario: report.usuario,
+        image1: null,
+        image2: null,
+    };
+}
 
 export default function Maps() {
-    const [selectedReport, setSelectedReport] = useState(null);
-    const [newReport, setNewReport] = useState(false);
+    const location = useLocation();
+    const [searchParams] = useSearchParams();
 
+    const [reports, setReports] = useState([]);
+    const [selectedReport, setSelectedReport] = useState(null);
+    const [newReport, setNewReport] = useState(
+        Boolean(location.state?.newReport)
+    );
+    const [markerPosition, setMarkerPosition] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [loadingReports, setLoadingReports] = useState(true);
+
+    useEffect(() => {
+        loadReports();
+    }, []);
+
+    useEffect(() => {
+        if (location.state?.newReport) {
+            setSelectedReport(null);
+            setNewReport(true);
+        }
+    }, [location.state]);
+
+    async function loadReports() {
+        try {
+            setLoadingReports(true);
+
+            const response = await fetch(`${API_URL}/report/list`);
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.message || "Erro ao carregar relatórios");
+            }
+
+            const formatted = data
+                .map(formatReport)
+                .filter(
+                    (report) =>
+                        Number.isFinite(report.position[0]) &&
+                        Number.isFinite(report.position[1])
+                );
+
+            setReports(formatted);
+
+            const reportId = Number(searchParams.get("report"));
+
+            if (reportId) {
+                const requestedReport = formatted.find(
+                    (report) => report.id === reportId
+                );
+
+                if (requestedReport) {
+                    setSelectedReport(requestedReport);
+                    setNewReport(false);
+                }
+            }
+        } catch (error) {
+            console.error("Erro ao carregar relatórios:", error);
+        } finally {
+            setLoadingReports(false);
+        }
+    }
+
+    function handleReportCreated(report) {
+        const formatted = formatReport(report);
+
+        setReports((old) => [formatted, ...old]);
+        setSelectedReport(formatted);
+        setNewReport(false);
+        setMarkerPosition(null);
+    }
 
     return (
         <div className="flex h-screen bg-[#111111] text-white">
-
-            {/* MENU LATERAL */}
             <Sidebar
                 sidebarOpen={sidebarOpen}
                 setSidebarOpen={setSidebarOpen}
             />
-            <main className="flex flex-1 flex-col">
 
-                {/* TOPO */}
+            <main className="flex flex-1 flex-col">
                 <header className="px-8 pt-8">
-                    <TopBar
-                        setSidebarOpen={setSidebarOpen}
-                    />
+                    <TopBar setSidebarOpen={setSidebarOpen} />
                 </header>
 
-                {/* CONTEÚDO */}
                 <div className="flex flex-1 overflow-hidden">
-
-
-                    {/* MAPA */}
                     <div className="relative z-0 flex-1">
                         <MapContainer
                             center={[-29.7549, -51.1496]}
@@ -88,6 +131,7 @@ export default function Maps() {
                             className="h-full w-full"
                         >
                             <TileLayer
+                                attribution='&copy; OpenStreetMap contributors'
                                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             />
 
@@ -99,6 +143,7 @@ export default function Maps() {
                                         click: () => {
                                             setSelectedReport(report);
                                             setNewReport(false);
+                                            setMarkerPosition(null);
                                         },
                                     }}
                                 >
@@ -111,23 +156,35 @@ export default function Maps() {
                                     </Popup>
                                 </Marker>
                             ))}
+
+                            <ClickMarker
+                                newReport={newReport}
+                                markerPosition={markerPosition}
+                                setMarkerPosition={setMarkerPosition}
+                            />
                         </MapContainer>
+
+                        {newReport && !markerPosition && (
+                            <div className="pointer-events-none absolute left-1/2 top-5 z-[500] -translate-x-1/2 rounded-xl bg-black/80 px-5 py-3 text-sm font-semibold text-white shadow-xl">
+                                Clique no mapa para marcar o local da ocorrência
+                            </div>
+                        )}
+
+                        {loadingReports && (
+                            <div className="pointer-events-none absolute bottom-5 left-5 z-[500] rounded-lg bg-black/70 px-4 py-2 text-sm text-gray-200">
+                                Carregando ocorrências...
+                            </div>
+                        )}
                     </div>
 
-                    {/* PAINEL DIREITO */}
                     <SidePainel
-                        selectedReport={
-                            selectedReport
-                        }
-                        setSelectedReport={
-                            setSelectedReport
-                        }
-                        newReport={
-                            newReport
-                        }
-                        setNewReport={
-                            setNewReport
-                        }
+                        selectedReport={selectedReport}
+                        setSelectedReport={setSelectedReport}
+                        newReport={newReport}
+                        setNewReport={setNewReport}
+                        markerPosition={markerPosition}
+                        setMarkerPosition={setMarkerPosition}
+                        onReportCreated={handleReportCreated}
                     />
                 </div>
             </main>

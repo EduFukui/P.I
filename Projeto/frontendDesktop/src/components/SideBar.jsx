@@ -198,6 +198,9 @@ function Sidebar({
                             onClick={() => {
                                 setActive("New Report");
                                 setSidebarOpen(false);
+                                navigate("/maps", {
+                                    state: { newReport: true },
+                                });
                             }}
                             className={`
                                 flex

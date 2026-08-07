@@ -1,21 +1,22 @@
-export default function IncidentFilters() {
+const filters = ["All", "Critical", "Pending", "Fixed"];
+
+export default function IncidentFilters({ value = "All", onChange = () => {} }) {
   return (
-    <div className="flex gap-2">
-      <button className="rounded-full bg-lime-400 px-4 py-2 font-semibold text-black">
-        All
-      </button>
-
-      <button className="rounded-full bg-[#242424] px-4 py-2">
-        Critical
-      </button>
-
-      <button className="rounded-full bg-[#242424] px-4 py-2">
-        Pending
-      </button>
-
-      <button className="rounded-full bg-[#242424] px-4 py-2">
-        Fixed
-      </button>
+    <div className="flex flex-wrap gap-2">
+      {filters.map((filter) => (
+        <button
+          key={filter}
+          type="button"
+          onClick={() => onChange(filter)}
+          className={`rounded-full px-4 py-2 font-semibold transition ${
+            value === filter
+              ? "bg-lime-400 text-black"
+              : "bg-[#242424] text-gray-300 hover:bg-[#303030]"
+          }`}
+        >
+          {filter}
+        </button>
+      ))}
     </div>
   );
 }
