@@ -38,30 +38,6 @@ export default function Form({
                 onChange={onChange}
             />
 
-            {/* Lembrar / Esqueci senha */}
-
-            <div className="flex items-center justify-between">
-
-                <label className="flex items-center gap-2 text-sm text-gray-400">
-
-                    <input
-                        type="checkbox"
-                        className="accent-lime-400"
-                    />
-
-                    Lembrar-me
-
-                </label>
-
-                <button
-                    type="button"
-                    className="text-sm text-lime-400 hover:underline"
-                >
-                    Esqueci minha senha
-                </button>
-
-            </div>
-
             {/* Erro */}
 
             {error && (

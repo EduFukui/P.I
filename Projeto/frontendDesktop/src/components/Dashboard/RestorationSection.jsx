@@ -5,72 +5,54 @@ import {
   WrenchScrewdriverIcon,
 } from "@heroicons/react/24/outline";
 
-import RestorationCard from "./RestorationCard";
-
-const fallbackAreas = [
-  { title: "Pavement", icon: <WrenchScrewdriverIcon className="w-6" /> },
-  { title: "Lighting", icon: <MapPinIcon className="w-6" /> },
-  { title: "Green", icon: <MapIcon className="w-6" /> },
-  { title: "Sanitation", icon: <TrashIcon className="w-6" /> },
+const restorationAreas = [
+  {
+    title: "Pavimentação",
+    total: "14 ativos",
+    icon: <WrenchScrewdriverIcon className="w-6" />,
+  },
+  {
+    title: "Iluminação",
+    total: "8 solicitações",
+    icon: <MapPinIcon className="w-6" />,
+  },
+  {
+    title: "Áreas Verdes",
+    total: "5 agendados",
+    icon: <MapIcon className="w-6" />,
+  },
+  {
+    title: "Limpeza Urbana",
+    total: "7 relatos",
+    icon: <TrashIcon className="w-6" />,
+  },
 ];
 
-function iconForCategory(name, index) {
-  const value = String(name || "").toLowerCase();
-
-  if (value.includes("luz") || value.includes("ilum")) {
-    return <MapPinIcon className="w-6" />;
-  }
-
-  if (value.includes("lixo") || value.includes("sanea") || value.includes("resíduo")) {
-    return <TrashIcon className="w-6" />;
-  }
-
-  if (value.includes("rua") || value.includes("buraco") || value.includes("pav")) {
-    return <WrenchScrewdriverIcon className="w-6" />;
-  }
-
-  const icons = [
-    <MapIcon className="w-6" key="map" />,
-    <MapPinIcon className="w-6" key="pin" />,
-    <WrenchScrewdriverIcon className="w-6" key="tool" />,
-    <TrashIcon className="w-6" key="trash" />,
-  ];
-
-  return icons[index % icons.length];
-}
-
-export default function RestorationSection({ reports = [], loading = false }) {
-  const counts = reports.reduce((acc, report) => {
-    const category = report.problema?.categoria?.nome || "Other";
-    acc[category] = (acc[category] || 0) + 1;
-    return acc;
-  }, {});
-
-  const dynamicAreas = Object.entries(counts)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 4)
-    .map(([title, total], index) => ({
-      title,
-      total: `${total} report${total === 1 ? "" : "s"}`,
-      icon: iconForCategory(title, index),
-    }));
-
-  const areas = dynamicAreas.length
-    ? dynamicAreas
-    : fallbackAreas.map((area) => ({ ...area, total: "0 reports" }));
-
+export default function RestorationSection() {
   return (
     <>
-      <h2 className="mb-5 text-xl font-bold">Report Categories</h2>
+      <h2 className="mb-5 text-xl font-bold">
+        Áreas de atendimento
+      </h2>
 
       <div className="mb-8 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-        {areas.map((area) => (
-          <RestorationCard
+        {restorationAreas.map((area) => (
+          <div
             key={area.title}
-            title={area.title}
-            total={loading ? "Loading..." : area.total}
-            icon={area.icon}
-          />
+            className="rounded-2xl border border-[#2a2a2a] bg-[#1d1d1d] p-6 transition hover:border-lime-400"
+          >
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#292929] text-lime-400">
+              {area.icon}
+            </div>
+
+            <h3 className="mt-5 font-semibold">
+              {area.title}
+            </h3>
+
+            <p className="mt-2 text-sm text-gray-400">
+              {area.total}
+            </p>
+          </div>
         ))}
       </div>
     </>
