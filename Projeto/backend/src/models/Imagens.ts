@@ -12,6 +12,7 @@ export class Imagens {
     @Column({ length: 100 })
     tipo: string;
 
+    // Imagem com blob
     @Column("longblob")
     imagem: Buffer;
 

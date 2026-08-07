@@ -16,10 +16,7 @@ export class Problemas {
     @Column({ nullable: false, length: 100 })
     nome: string;
 
-    @Column({
-        type: "enum",
-        enum: ["Baixa", "Média", "Alta", "Urgente"],
-    })
+    @Column({ type: "enum", enum: ["Baixa", "Média", "Alta", "Urgente"] })
     prioridade: "Baixa" | "Média" | "Alta" | "Urgente";
 
     @Column({ type: "text" })
