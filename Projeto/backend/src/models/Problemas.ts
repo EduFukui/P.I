@@ -25,13 +25,13 @@ export class Problemas {
     @Column({ type: "text", nullable: true })
     comentarioResolucao: string | null;
 
-    @Column({ nullable: true })
+    @Column({ type: "int", nullable: true })
     avaliacaoUsuario: number | null;
 
-    @Column({ nullable: true })
+    @Column({ type: "datetime", nullable: true })
     dataHoraResolucao: Date | null;
 
-    @Column({ nullable: true, length: 150 })
+    @Column({ type: "varchar", nullable: true, length: 150 })
     responsavelResolucao: string | null;
 
     @ManyToOne(() => Categorias, (categoria) => categoria.problemas, {
