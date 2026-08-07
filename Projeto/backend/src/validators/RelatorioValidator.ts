@@ -2,9 +2,9 @@ import { z } from "zod";
 
 const enderecoSchema = z.object({
     cep: z.string().regex(/^\d{8}$/, "CEP deve conter exatamente 8 dígitos"),
-    numero: z.string().trim().min(1, "Informe o número").max(10),
-    complemento: z.string().trim().max(100).optional().default(""),
-    cidade: z.string().trim().min(2, "Informe a cidade").max(100),
+    numero: z.string().trim().min(1, "Informe o número").max(10), // trim - sem espaços
+    complemento: z.string().trim().max(100).optional().default(""),  
+    cidade: z.string().trim().min(2, "Informe a cidade").max(100), 
     bairro: z.string().trim().min(2, "Informe o bairro").max(100),
     estado: z.string().trim().length(2, "Estado deve conter 2 caracteres").transform((v) => v.toUpperCase()),
     pais: z.string().trim().min(2, "Informe o país").max(50),
