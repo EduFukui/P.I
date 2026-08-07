@@ -11,7 +11,7 @@ export default function TopBar({ setSidebarOpen }) {
 
     const navigate = useNavigate();
 
-    let user = {};
+    let user;
 
     try {
         user = JSON.parse(
@@ -77,7 +77,7 @@ export default function TopBar({ setSidebarOpen }) {
 
                     <div className="text-right">
 
-                        <h2 className="max-w-[180px] truncate font-semibold text-white">
+                        <h2 className="max-w-45 truncate font-semibold text-white">
                             {user.nomeCompleto || "Usuário"}
                         </h2>
 

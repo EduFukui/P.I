@@ -62,7 +62,7 @@ function Sidebar({
             {sidebarOpen && (
                 <div
                     onClick={() => setSidebarOpen(false)}
-                    className="fixed inset-0 z-[9998] bg-black/60 backdrop-blur-[1px]"
+                    className="fixed inset-0 z-9998 bg-black/60 backdrop-blur-[1px]"
                 />
             )}
 
@@ -74,7 +74,7 @@ function Sidebar({
                     fixed
                     left-0
                     top-0
-                    z-[9999]
+                    z-9999
                     flex
                     h-screen
                     w-64

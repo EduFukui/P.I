@@ -11,7 +11,7 @@ export default function SidePainel({
     onReportCreated,
 }) {
     return (
-        <aside className="w-[380px] shrink-0 overflow-y-auto border-l border-[#2a2a2a] bg-[#1b1b1b]">
+        <aside className="w-95 shrink-0 overflow-y-auto border-l border-[#2a2a2a] bg-[#1b1b1b]">
             {!selectedReport && !newReport && (
                 <div className="flex h-full items-center justify-center p-8 text-center">
                     <div>
