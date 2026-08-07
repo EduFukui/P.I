@@ -1,14 +1,11 @@
-import RegisterForm from "../components/Register/RegisterForm";
-import RegisterHero from "../components/RegisterHero";
+import RegisterForm from "../components/Home/Register/RegisterForm";
+import HomeLEFT from "../components/Home/HomeLEFT";
 
 export default function Register() {
     return (
         <main className="flex min-h-screen bg-[#131313]">
-
-            <RegisterHero />
-
+            <HomeLEFT />
             <RegisterForm />
-
         </main>
     );
 }

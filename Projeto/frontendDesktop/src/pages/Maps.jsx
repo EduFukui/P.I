@@ -33,8 +33,7 @@ function formatReport(report) {
         ],
         endereco: report.endereco,
         usuario: report.usuario,
-        image1: null,
-        image2: null,
+        imagens: Array.isArray(report.imagens) ? report.imagens : [],
     };
 }
 

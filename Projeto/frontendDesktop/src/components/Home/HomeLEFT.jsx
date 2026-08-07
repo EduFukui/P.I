@@ -2,18 +2,17 @@ import {
     BoltIcon,
     ChartBarIcon,
 } from "@heroicons/react/24/solid";
-
+import { BuildingOffice2Icon } from "@heroicons/react/24/solid";
 import FeatureCard from "./FeatureCard";
-import Logo from "./Logo";
 
-export default function RegisterHero() {
+export default function HomeLEFT() {
     return (
         <section className="relative hidden overflow-hidden bg-[#131313] lg:flex lg:w-1/2 items-center justify-center p-12">
 
             {/* Imagem */}
 
             <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn8V74WfbHgjEMYFVqgEYTwHGed5FOTfg7HXPWDENwMdJ0cb5iCdmV2YNIyJjaMinANVaJ2BwYd6AHxPqrjX1t96oakcyAz-Vq891kYlu4CfnWIjwbp0Qfr6lyRo5UBJq4y3Hs95fRzhCLfoac09z9Qa_ajDyK7NPJ6q65RtPpXJ2zOt9Z78DbejazDWSq1ktxgis5NMONmf0ScelW3oxL5kATtGY5qx28mHRiin84Z4J5cxmuAApc"
+                src="../../imgs/image.png"
                 className="absolute bottom-[-10%] right-[-10%] w-130 opacity-20"
                 alt=""
             />
@@ -22,10 +21,28 @@ export default function RegisterHero() {
 
                 <div className="mb-8 flex items-center gap-3">
 
-                    <Logo />
+                    <div className="flex items-center gap-3">
+
+                        <BuildingOffice2Icon
+                            className="h-10 w-10 text-lime-400"
+                        />
+
+                        <div>
+
+                            <h1 className="text-3xl font-bold text-lime-400">
+                                Muda SL
+                            </h1>
+
+                            <p className="text-sm text-gray-400">
+                                Sistema Inteligente
+                            </p>
+
+                        </div>
+
+                    </div>
 
                     <h1 className="text-3xl font-bold text-lime-400">
-                     
+
                     </h1>
 
                 </div>

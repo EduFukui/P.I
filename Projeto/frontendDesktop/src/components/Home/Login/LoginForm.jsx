@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Logo from "../Logo";
 import Form from "./Form";
 
 export default function LoginForm() {
@@ -16,8 +15,8 @@ export default function LoginForm() {
 
     const [error, setError] = useState("");
 
+    // Pega Campo do formulário e atualiza o estado
     function handleChange(e) {
-
         const { name, value } = e.target;
 
         setForm((old) => ({
@@ -25,16 +24,13 @@ export default function LoginForm() {
             [name]: value,
         }));
 
-        // Remove erro quando usuário começar a corrigir
         if (error) {
             setError("");
         }
     }
 
     async function handleSubmit(e) {
-
         e.preventDefault();
-
         setError("");
 
         // Validação
@@ -48,10 +44,9 @@ export default function LoginForm() {
             return;
         }
 
+        // Login com backend (Fetch API)
         try {
-
             setLoading(true);
-
             const response = await fetch(
                 "http://localhost:3000/auth/login",
                 {
@@ -87,10 +82,7 @@ export default function LoginForm() {
             }
 
             // Salva JWT
-            localStorage.setItem(
-                "token",
-                data.token
-            );
+            localStorage.setItem("token", data.token);
 
             // Salva usuário
             if (data.user) {
@@ -103,20 +95,16 @@ export default function LoginForm() {
 
             console.log("Login realizado:", data.user);
 
-            // Vai para o Dashboard
+            // Vai para o Dashboard com navigate
             navigate("/dashboard");
 
         } catch (error) {
-
             console.error("Erro no login:", error);
-
             setError(
                 error.message ||
                 "Não foi possível realizar o login."
             );
-
         } finally {
-
             setLoading(false);
         }
     }
@@ -126,10 +114,6 @@ export default function LoginForm() {
         <section className="flex w-full items-center justify-center bg-[#131313] px-6 py-12 lg:w-1/2">
 
             <div className="w-full max-w-md">
-
-                <div className="mb-10 lg:hidden">
-                    <Logo />
-                </div>
 
                 <h2 className="text-4xl font-bold text-white">
                     Bem-vindo
